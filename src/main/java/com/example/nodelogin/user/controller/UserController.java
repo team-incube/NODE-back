@@ -25,22 +25,20 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
-        if(!registerDto.getEmail().endsWith("@gsm.hs.kr")) {
-            throw new IllegalArgumentException("해당 도메인만 가입 가능합니다.");
-        }
-
         registerService.register(registerDto);
         return ResponseEntity.ok("회원가입 성공!");
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
-        User user = userRepository.findByEmail(loginDto.getEmail())
+        String email = loginDto.getUsername() + "@gsm.hs.kr";
+
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자"));
         if(!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호 불일치");
         }
 
-        return ResponseEntity.ok(jwtUtil.generateToken(user.getEmail()));
+        return ResponseEntity.ok("로그인 완료!");
     }
 }

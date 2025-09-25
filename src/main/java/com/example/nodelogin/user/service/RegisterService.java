@@ -12,18 +12,28 @@ public class RegisterService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-        public void register (RegisterDto request) {
-            String email = request.getUsername() + "@gsm.hs.kr";
-            String password = passwordEncoder.encode(request.getPassword());
-
-            User user = User.builder()
-                    .email(email)
-                    .password(passwordEncoder.encode(request.getPassword()))
-                    .gender(request.getGender())
-                    .classnumber(request.getClassnumber())
-                    .specialty(request.getSpecialty())
-                    .build();
-
-            userRepository.save(user);
+    public void register(RegisterDto request) {
+        if (request.getUsername() == null || request.getUsername().isBlank()) {
+            throw new IllegalArgumentException("아이디(Username)를 입력해야 합니다.");
         }
+
+        String email = request.getUsername() + "@gsm.hs.kr";
+
+        if (userRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+        }
+
+        String password = passwordEncoder.encode(request.getPassword());
+
+        User user = User.builder()
+                .email(email)
+                .password(password)
+                .gender(request.getGender())
+                .classnumber(request.getClassnumber())
+                .specialty(request.getSpecialty())
+                .build();
+
+        userRepository.save(user);
+    }
+
 }

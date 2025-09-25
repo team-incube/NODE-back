@@ -18,7 +18,7 @@ public class User {
     private String password;
 
     private String gender;
-    private String grade;
-    private String classnumber;
+    private int grade;
+    private int classnumber;
     private String specialty;
 }

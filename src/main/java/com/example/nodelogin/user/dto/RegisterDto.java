@@ -9,8 +9,7 @@ public class RegisterDto {
     private String username;
     private String password;
     private String gender;
-    private String grade;
-    private String classnumber;
+    private Integer grade;
+    private Integer classnumber;
     private String specialty;
-    private String email;
 }
