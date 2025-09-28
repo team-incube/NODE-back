@@ -23,6 +23,17 @@ public class RegisterService {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
 
+
+        String rawPassword = request.getPassword();
+
+        if (rawPassword.length() < 8 || rawPassword.length() > 12) {
+            throw new IllegalArgumentException("비밀번호는 8자 이상 12자 이하로 작성해야 합니다.");
+        }
+
+        if (!rawPassword.matches(".*[A-Za-z].*") || !rawPassword.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("비밀번호는 영문자와 숫자를 모두 포함해야 합니다.");
+        }
+
         String password = passwordEncoder.encode(request.getPassword());
 
         User user = User.builder()
