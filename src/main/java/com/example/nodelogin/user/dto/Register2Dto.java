@@ -5,11 +5,10 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterDto {
+public class Register2Dto {
     private String username;
     private String password;
     private String gender;
     private Integer grade;
     private Integer classnumber;
-    private String specialty;
 }

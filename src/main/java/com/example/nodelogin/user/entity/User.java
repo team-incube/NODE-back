@@ -21,4 +21,12 @@ public class User {
     private int grade;
     private int classnumber;
     private String specialty;
+    private int profile;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    public enum Role {
+        MENTOR,
+        MENTEE
+    }
 }
