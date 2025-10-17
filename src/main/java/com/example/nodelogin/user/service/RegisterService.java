@@ -42,6 +42,7 @@ public class RegisterService {
                 .password(password)
                 .gender(register2Dto.getGender())
                 .classnumber(register2Dto.getClassnumber())
+                .role(register2Dto.getRole())
                 .build();
 
         userRepository.save(user);
