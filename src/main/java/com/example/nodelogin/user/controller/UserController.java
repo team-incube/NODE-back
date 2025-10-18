@@ -1,9 +1,8 @@
 package com.example.nodelogin.user.controller;
 import com.example.nodelogin.security.JwtUtil;
-import com.example.nodelogin.user.dto.LoginDto;
-import com.example.nodelogin.user.dto.Register1Dto;
-import com.example.nodelogin.user.dto.Register2Dto;
+import com.example.nodelogin.user.dto.*;
 import com.example.nodelogin.user.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import com.example.nodelogin.user.entity.User;
@@ -22,14 +21,26 @@ public class UserController {
     private final UserRepository userRepository;
 
     @PostMapping("/step1")
-    public ResponseEntity<String> register1(@RequestBody Register1Dto register1Dto) {
-        return ResponseEntity.ok("역할 선택 완료!");
+    public ResponseEntity<String> register1(@RequestBody Register1Dto register1Dto, HttpSession session) {
+        return ResponseEntity.ok("역할 선택 완료! 다음 단계로 넘어가 주세요");
     }
 
     @PostMapping("/step2")
-    public ResponseEntity<String> register1(@RequestBody Register2Dto register2Dto) {
+    public ResponseEntity<String> register2(@RequestBody Register2Dto register2Dto,  HttpSession session) {
         registerService.register2(register2Dto);
-        return ResponseEntity.ok("회원가입 성공!");
+        return ResponseEntity.ok("개인 정보 입력 완료! 다음 단계로 넘어가 주세요");
+    }
+
+    @PostMapping("step3")
+    public ResponseEntity<String> register3(@RequestBody Register3Dto register3Dto,  HttpSession session) {
+        registerService.register3(register3Dto);
+        return ResponseEntity.ok("전공 선택 완료! 다음 단계로 넘어가 주세요");
+    }
+
+    @PostMapping("/step4")
+    public ResponseEntity<String> register4(@RequestBody Register4Dto register4Dto,  HttpSession session) {
+        registerService.register4(register4Dto);
+        return ResponseEntity.ok("프로필 선택 완료! 회원가입이 완료 되었습니다!");
     }
 
     @PostMapping("/login")

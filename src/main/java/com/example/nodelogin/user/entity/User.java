@@ -29,4 +29,13 @@ public class User {
         MENTOR,
         MENTEE
     }
+
+    @Enumerated(EnumType.STRING)
+    private Picture picture;
+    public enum Picture {
+        PICTURE1,
+        PICTURE2,
+        PICTURE3,
+        PICTURE4
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.nodelogin.user.service;
 import com.example.nodelogin.user.dto.Register1Dto;
 import com.example.nodelogin.user.dto.Register2Dto;
+import com.example.nodelogin.user.dto.Register3Dto;
+import com.example.nodelogin.user.dto.Register4Dto;
 import com.example.nodelogin.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,13 +46,29 @@ public class RegisterService {
                 .classnumber(register2Dto.getClassnumber())
                 .role(register2Dto.getRole())
                 .build();
-
-        userRepository.save(user);
     }
 
     public void register1(Register1Dto register1Dto) {
         User user = User.builder()
                 .role(register1Dto.getRole())
                 .build();
+    }
+
+    public void register3(Register3Dto register3Dto) {
+        User user = User.builder()
+                .specialty(register3Dto.getSpecialty())
+                .build();
+    }
+
+    public void register4(Register4Dto register4Dto, Register2Dto register2Dto, Register1Dto register1Dto, Register3Dto register3Dto) {
+        User user = User.builder()
+                .email(register2Dto.getUsername() + "@gsm.hs.kr")
+                .password(passwordEncoder.encode(register2Dto.getPassword()))
+                .gender(register2Dto.getGender())
+                .classnumber(register2Dto.getClassnumber())
+                .role(register2Dto.getRole())
+                .picture(register4Dto.getPicture())
+                .build();
+        userRepository.save(user);
     }
 }
