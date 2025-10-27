@@ -18,24 +18,24 @@ public class User {
     private String password;
 
     private String gender;
-    private int grade;
+    private Integer grade;
     private int classnumber;
     private String specialty;
     private int profile;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    public enum Role {
-        MENTOR,
-        MENTEE
-    }
+        @Enumerated(EnumType.STRING)
+        private Role role;
+        public enum Role {
+            MENTOR,
+            MENTEE
+        }
 
-    @Enumerated(EnumType.STRING)
-    private Picture picture;
-    public enum Picture {
-        PICTURE1,
-        PICTURE2,
-        PICTURE3,
-        PICTURE4
-    }
+        @Enumerated(EnumType.STRING)
+        private Picture picture;
+        public enum Picture {
+            PICTURE1,
+            PICTURE2,
+            PICTURE3,
+            PICTURE4
+        }
 }

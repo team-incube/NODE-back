@@ -10,6 +10,13 @@ import com.example.nodelogin.user.entity.User;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Register1Dto {
+public class RegisterDto {
     private User.Role role;
+    private User.Picture picture;
+    private String username;
+    private String password;
+    private String gender;
+    private Integer grade;
+    private Integer classnumber;
+    private String specialty;
 }
