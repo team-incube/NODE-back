@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class UserEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long loginId;
 
@@ -18,6 +18,7 @@ public class User {
     private String password;
 
     private String gender;
+    private String username;
     private Integer grade;
     private int classnumber;
     private String specialty;
