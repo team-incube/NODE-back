@@ -17,16 +17,34 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String gender;
+
+    @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private Integer grade;
-    private int classnumber;
+
+    @Column(nullable = false)
+    private int classNumber;
+
+    @Column(nullable = false)
     private String specialty;
+
+    @Column(nullable = false)
     private int profile;
 
         @Enumerated(EnumType.STRING)
         private Role role;
         public enum Role {
+            ADMIN,
+            USER
+        }
+
+        @Enumerated(EnumType.STRING)
+        private UserType userType;
+        public enum UserType {
             MENTOR,
             MENTEE
         }

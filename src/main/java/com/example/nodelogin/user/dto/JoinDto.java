@@ -17,6 +17,6 @@ public class JoinDto {
     private String email;
     private String gender;
     private Integer grade;
-    private Integer classnumber;
+    private Integer classNumber;
     private String specialty;
 }

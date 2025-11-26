@@ -9,17 +9,49 @@ import com.example.nodelogin.user.repository.UserRepository;
 @Service
 @RequiredArgsConstructor
 public class JoinService {
+
     private final UserRepository userRepository;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void joinService(JoinDto joinDto) {
-        UserEntity userEntity = new UserEntity();
-        UserEntity.setUsername(joinDto.getUsername());
-        userEntity.setPassword(bCryptPasswordEncoder(joinDto.getPassword()));
+    public joinService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
 
-        if(userRepository.findByUsername(joinDto.getUsername())) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+
+    }
+
+    public void joinProcess(JoinDto joinDto) {
+
+        String username = joinDto.getUsername();
+        String password = joinDto.getPassword();
+        UserEntity.Role role = joinDto.getRole();
+        String email = joinDto.getEmail();
+        String specialty = joinDto.getSpecialty();
+        String gender = joinDto.getGender();
+        Integer grade = joinDto.getGrade();
+        Integer classNumber = joinDto.getClassNumber();
+        UserEntity.Picture picture = joinDto.getPicture();
+
+        Boolean exists = userRepository.existsByUsername(username);
+
+        if (exists) {
             return;
         }
-        userRepository.save(userEntity);
+
+        UserEntity data = new UserEntity();
+
+        data.setUsername(username);
+        data.setPassword(bCryptPasswordEncoder.encode(password));
+        data.setRole(role);
+        data.setEmail(email);
+        data.setGender(gender);
+        data.setGrade(grade);
+        data.setClassNumber(classNumber);
+        data.setPicture(picture);
+        data.setSpecialty(specialty);
+
+        userRepository.save(data);
+
     }
 }
