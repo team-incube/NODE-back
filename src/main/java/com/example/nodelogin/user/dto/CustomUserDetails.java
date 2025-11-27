@@ -7,16 +7,30 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-@RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
     private final UserEntity userEntity;
 
+    public CustomUserDetails(UserEntity userEntity) {
+
+        this.userEntity = userEntity;
+
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         Collection<GrantedAuthority> collection = new ArrayList<>();
-        collection.add(() -> userEntity.getRole()); // 람다 사용 가능
+
+        collection.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return userEntity.getRole();
+            }
+        });
+
         return collection;
     }
 
