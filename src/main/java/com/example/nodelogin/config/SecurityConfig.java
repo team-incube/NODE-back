@@ -1,5 +1,6 @@
 package com.example.nodelogin.config;
 
+import com.example.nodelogin.jwt.JWTFilter;
 import com.example.nodelogin.jwt.JWTUtil;
 import com.example.nodelogin.jwt.LoginFilter;
 import org.springframework.context.annotation.Bean;
@@ -57,6 +58,9 @@ public class SecurityConfig {
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http
+                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
 
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.example.nodelogin.user.repository.UserRepository;
 
 @Service
-@RequiredArgsConstructor
 public class JoinService {
 
     private final UserRepository userRepository;
