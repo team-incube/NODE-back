@@ -13,6 +13,7 @@ public class LoginService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String email = username + "@gsm.hs.kr";

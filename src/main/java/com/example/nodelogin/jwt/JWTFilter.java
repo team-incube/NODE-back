@@ -1,6 +1,5 @@
 package com.example.nodelogin.jwt;
 
-import com.example.nodelogin.security.JwtUtil;
 import com.example.nodelogin.user.dto.CustomUserDetails;
 import com.example.nodelogin.user.entity.UserEntity;
 import jakarta.servlet.FilterChain;
@@ -32,7 +31,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
         }
 
-        String token = authorization.split("")[1];
+        String token = authorization.split(" ")[1];
 
         if (jwtUtil.isExpired(token)) {
             System.out.println("token expired");
@@ -47,11 +46,11 @@ public class JWTFilter extends OncePerRequestFilter {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(username);
         userEntity.setPassword("temppassword");
-        userEntity.setRole(role);
+        userEntity.setRole(UserEntity.Role.valueOf(role));
 
         CustomUserDetails customUserDetails = new CustomUserDetails(userEntity);
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
+        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
 
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
