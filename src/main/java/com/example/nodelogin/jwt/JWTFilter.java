@@ -28,6 +28,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
             System.out.println("token null");
             filterChain.doFilter(request, response);
+            return;
 
         }
 
