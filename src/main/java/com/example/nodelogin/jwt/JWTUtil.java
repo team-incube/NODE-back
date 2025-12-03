@@ -15,7 +15,7 @@ public class JWTUtil {
     private SecretKey secretKey;
     private Long accessExpiration;
 
-    public JWTUtil(@Value("${JWT_SECRET}")String secret,  @Value("${JWT_ACCESS_EXPIRATION   }") Long accessExpiration) {
+    public JWTUtil(@Value("${JWT_SECRET}")String secret,  @Value("${JWT_ACCESS_EXPIRATION}") Long accessExpiration) {
         this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
         this.accessExpiration = accessExpiration;
     }
