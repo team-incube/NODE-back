@@ -13,9 +13,11 @@ import java.util.Date;
 public class JWTUtil {
 
     private SecretKey secretKey;
+    private Long accessExpiration;
 
-    public JWTUtil(@Value("${JWT_SECRET}")String secret) {
+    public JWTUtil(@Value("${JWT_SECRET}")String secret,  @Value("${JWT_ACCESS_EXPIRATION   }") Long accessExpiration) {
         this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
+        this.accessExpiration = accessExpiration;
     }
 
     public String getUsername(String token) {
@@ -32,6 +34,10 @@ public class JWTUtil {
 
     public boolean isExpired(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
+    }
+
+    public String createJwt(String username, String role) {
+        return createJwt(username, role, accessExpiration);
     }
 
     public String createJwt(String username, String role, Long expiredMs) {
