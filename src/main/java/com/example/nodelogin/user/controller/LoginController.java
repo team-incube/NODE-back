@@ -34,8 +34,8 @@ public class LoginController {
             );
 
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String accessToken = jwtUtil.generateToken(userDetails);
-            String refreshToken = jwtUtil.generateRefreshToken(userDetails);
+            String accessToken = jwtUtil.createJwt(userDetails);
+            String refreshToken = jwtUtil.createJwt(userDetails);
 
             return ResponseEntity.ok(
                     Map.of(
@@ -45,7 +45,7 @@ public class LoginController {
                     )
             );
         }catch (Exception e) {
-            return ResponseEntity.status(401).body(Map.of("error", "Invalid email or password()");
+            return ResponseEntity.status(401).body(Map.of("error", "Invalid email or password()"));
         }
     }
 }

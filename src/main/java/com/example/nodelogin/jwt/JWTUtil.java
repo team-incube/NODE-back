@@ -2,6 +2,7 @@ package com.example.nodelogin.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -36,13 +37,15 @@ public class JWTUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
-    public String createJwt(String username, String role) {
+    public String createJwt(UserDetails userDetails) {
+        String username = userDetails.getUsername();
+        String role = userDetails.getAuthorities().iterator().next().getAuthority();
         return createJwt(username, role, accessExpiration);
     }
 
-    public String createJwt(String username, String role, Long expiredMs) {
+    public String createJwt(String email, String role, Long expiredMs) {
         return Jwts.builder()
-                .claim("username", username)
+                .claim("email", email)
                 .claim("role", role)
                 .issuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiredMs))

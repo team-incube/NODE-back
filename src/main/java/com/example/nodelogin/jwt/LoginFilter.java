@@ -1,6 +1,8 @@
 package com.example.nodelogin.jwt;
 
 import com.example.nodelogin.user.dto.CustomUserDetails;
+import com.example.nodelogin.user.dto.LoginDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,19 +29,22 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
 
-        setFilterProcessesUrl("/login");
+        setFilterProcessesUrl("/user/login");
 
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
-        String email = request.getParameter("email");
-        String password = obtainPassword(request);
+        try{
+            LoginDto loginDto = new ObjectMapper().readValue(request.getInputStream(), LoginDto.class);
 
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, password, null);
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
 
-        return authenticationManager.authenticate(authToken);
+            return authenticationManager.authenticate(authToken);
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -55,7 +60,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String role = auth.getAuthority();
 
-            String token = jwtUtil.createJwt(username, role);
+            String token = jwtUtil.createJwt(customUserDetails);
 
         response.addHeader("Authorization", "Bearer " + token);
     }
