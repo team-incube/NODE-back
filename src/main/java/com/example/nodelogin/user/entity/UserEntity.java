@@ -33,9 +33,6 @@ public class UserEntity {
     @Column(nullable = false)
     private String specialty;
 
-    @Column(nullable = false)
-    private int profile;
-
         @Enumerated(EnumType.STRING)
         private Role role;
         public enum Role {
