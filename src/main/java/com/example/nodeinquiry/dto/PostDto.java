@@ -20,12 +20,15 @@ public class PostDto {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public void setContent(String content) {
         this.content = content;
     }
+
     public void setWriter(String writer) {
         this.writer = writer;
     }
+
     public Inquiry toEntity() {
         Inquiry inquiry = new Inquiry();
         inquiry.setTitle(this.title);

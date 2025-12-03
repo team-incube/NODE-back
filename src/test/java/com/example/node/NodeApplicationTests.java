@@ -1,13 +1,13 @@
-package com.example.nodeinquiry;
+package com.example.node;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NodeInquiryApplicationTests {
+class NodeApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
