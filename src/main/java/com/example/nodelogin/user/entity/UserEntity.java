@@ -28,7 +28,7 @@ public class UserEntity {
     private Integer grade;
 
     @Column(nullable = false)
-    private int classNumber;
+    private Integer classNumber;
 
     @Column(nullable = false)
     private String specialty;
